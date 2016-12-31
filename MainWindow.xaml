@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingOffice"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Booking Office" Height="350" Width="525">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Margin="0">
+            <Label x:Name="label_Copy" Content="Desk 1" HorizontalAlignment="Center" Height="41" Margin="0,33,0,0" VerticalAlignment="Top" Width="164" FontSize="20"/>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="56,94,56,45">
+                <TextBox x:Name="textBoxA" Margin="5" TextWrapping="Wrap" BorderThickness="0" AcceptsReturn="True" Text="&gt;" KeyDown="textBoxA_KeyDown"/>
+            </Border>
+        </Grid>
+        <Grid Grid.Column="1" Margin="0">
+            <Label x:Name="label" Content="Desk 2" HorizontalAlignment="Center" Height="41" Margin="0,33,0,0" VerticalAlignment="Top" Width="164" FontSize="20"/>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="56,94,56,45">
+                <TextBox x:Name="textBoxB" Margin="5" TextWrapping="Wrap" AcceptsReturn="True" BorderThickness="0" Text="&gt;" KeyDown="textBoxB_KeyDown"/>
+            </Border>
+        </Grid>
+
     </Grid>
 </Window>
