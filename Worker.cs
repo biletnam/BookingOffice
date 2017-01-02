@@ -41,6 +41,12 @@ namespace BookingOffice
             workerThread.Start();
         }
 
+        public void Stop()
+        {
+            if (workerThread != null && workerThread.IsAlive)
+                workerThread.Abort();
+        }
+
         public MailBox MakeNewMailBox()
         {
             MailBoxes.Add(new MailBox());

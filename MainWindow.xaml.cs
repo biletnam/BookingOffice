@@ -113,7 +113,7 @@ namespace BookingOffice
             switch (textBox)
             {
                 case 0:
-                    Dispatcher.Invoke(() => 
+                    Dispatcher.Invoke(() =>
                     {
                         textBoxA.Focus();
                         textBoxA.CaretIndex = textBoxA.Text.Length;
@@ -129,6 +129,11 @@ namespace BookingOffice
                 default:
                     break;
             }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            StopAllThreads();
         }
 
         private Tickets GetTicket(KeyEventArgs e, int textBox)
@@ -163,11 +168,25 @@ namespace BookingOffice
             {
                 case Key.D0:
                     if (textBox == 0)
-                        deskA = new Desk(this, worker, textBox);
+                    {
+                        if (deskA != null)
+                            WriteResponse("Desk A is already started!", 0);
+                        else
+                        {
+                            deskA = new Desk(this, worker, 0);
+                            WriteResponse("Desk A was started!", 0);
+                        }
+                    }
                     else
-                        deskB = new Desk(this, worker, textBox);
-
-                    WriteResponse("Desk " + (textBox == 0 ? "A" : "B") + " was started!", textBox);
+                    {
+                        if (deskB != null)
+                            WriteResponse("Desk B is already started!", 1);
+                        else
+                        {
+                            deskB = new Desk(this, worker, 1);
+                            WriteResponse("Desk B was started!", 1);
+                        }
+                    }
                     return null;
                 case Key.D1:
                     return _priceTable[0];
@@ -180,26 +199,18 @@ namespace BookingOffice
                 case Key.D5:
                     return _priceTable[4];
                 default:
-                    return null;                 
+                    return null;
             }
         }
 
-        /*
-        public void WriteTextA(string text)
+        private void StopAllThreads()
         {
-            Dispatcher.BeginInvoke((Action)(() =>
-            {
-                textBoxA.Text += text + "\n";
-            }));
+            if (worker != null)
+                worker.Stop();
+            if (deskA != null)
+                deskA.Stop();
+            if (deskB != null)
+                deskB.Stop();
         }
-
-        public void WriteTextB(string text)
-        {
-            Dispatcher.BeginInvoke((Action)(() =>
-            {
-                textBoxB.Text += text + "\n";
-            }));
-        }
-        */
     }
 }

@@ -32,6 +32,12 @@ namespace BookingOffice
             connectorThread.Start();
         }
 
+        public void Stop()
+        {
+            if (connectorThread != null && connectorThread.IsAlive)
+                connectorThread.Abort();
+        }
+
         public void Enqueue(Transaction transaction)
         {
             transactionsQueue.Enqueue(transaction);
